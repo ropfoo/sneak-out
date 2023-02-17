@@ -1,17 +1,14 @@
 import * as React from 'react';
-import { useQuery } from 'react-query';
-import { searchMovies } from '../lib/requests/client/search-movies';
+import { trpc } from '../utils/trpc';
 import useDebounce from './useDebounce';
 
 export function useMovieSearch() {
   const [input, setInput] = React.useState('spiderman');
   const debouncedValue = useDebounce<string>(input, 500);
 
-  const searchMoviesQuery = useQuery(['searchResult', debouncedValue], () =>
-    searchMovies(input)
-  );
+  const searchMoviesQuery = trpc.movies.search.useQuery({
+    title: debouncedValue,
+  });
 
-  console.log(searchMoviesQuery.data);
-
-  return { input, setInput, data: searchMoviesQuery.data };
+  return { input, setInput, movies: searchMoviesQuery.data };
 }

@@ -4,11 +4,15 @@ import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '@/src/styles/Home.module.css';
 import { useMovieSearch } from '../hooks/useMovieSearch';
+import { trpc } from '../utils/trpc';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const { input, setInput, data } = useMovieSearch();
+  const { input, setInput, movies } = useMovieSearch();
+  const userQuery = trpc.user.all.useQuery();
+  console.log('users', userQuery.data);
+  // console.log('movies', movies);
 
   return (
     <>
@@ -28,7 +32,8 @@ export default function Home() {
           />
         </div>
         <div>
-          {data?.results?.map((movie: any) => (
+          {/* <button onClick={() => createUser()}>create peter shaw</button> */}
+          {movies?.results?.map((movie: any) => (
             <div key={movie.id}>
               <img
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`}
