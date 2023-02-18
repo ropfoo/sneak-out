@@ -2,13 +2,15 @@ import * as React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import { useMovieSearch } from "../hooks/useMovieSearch";
+import { useMovieSearch } from "../components/Search/useMovieSearch";
 import { trpc } from "../utils/trpc";
+import SearchResult from "../components/Search/SearchResult";
+import SearchBar from "../components/Search/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { input, setInput, movies } = useMovieSearch();
+  const { input, movies } = useMovieSearch();
   const userQuery = trpc.user.all.useQuery();
 
   return (
@@ -21,28 +23,12 @@ export default function Home() {
       </Head>
       <header className="sticky top-0 flex w-full flex-col bg-slate-900 p-4 text-slate-300">
         <p>hello party people!</p>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
+        <SearchBar />
       </header>
       <main>
         <div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 md:gap-5 md:p-5 xl:grid-cols-3">
           {movies?.results?.map((movie: any) => (
-            <div
-              key={movie.id}
-              className="flex overflow-hidden rounded-2xl bg-slate-800 text-slate-50"
-            >
-              <img
-                className="w-44"
-                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`}
-                alt=""
-              />
-              <div className="p-4">
-                <p className="text-lg font-bold">{movie.title}</p>
-              </div>
-            </div>
+            <SearchResult key={movie.id} movie={movie} />
           ))}
         </div>
       </main>
