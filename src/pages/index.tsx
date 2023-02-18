@@ -5,12 +5,11 @@ import { Inter } from "@next/font/google";
 import { useMovieSearch } from "../components/Search/useMovieSearch";
 import { trpc } from "../utils/trpc";
 import SearchResult from "../components/Search/SearchResult";
-import SearchBar from "../components/Search/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { input, movies } = useMovieSearch();
+  const { movies } = useMovieSearch();
   const userQuery = trpc.user.all.useQuery();
 
   return (
@@ -21,10 +20,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className="sticky top-0 flex w-full flex-col bg-slate-900 p-4 text-slate-300">
-        <p>hello party people!</p>
-        <SearchBar />
-      </header>
       <main>
         <div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 md:gap-5 md:p-5 xl:grid-cols-3">
           {movies?.results?.map((movie: any) => (
