@@ -12,6 +12,7 @@ export default function Home() {
   const { movies } = useMovieSearch();
   const userQuery = trpc.user.all.useQuery();
 
+  console.log(movies);
   return (
     <>
       <Head>
