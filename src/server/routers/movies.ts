@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { baseProcedure, router } from '../trpc';
+import { z } from "zod";
+import { baseProcedure, router } from "../trpc";
 
 export const moviesRouter = router({
   search: baseProcedure
     .input(
       z.object({
-        title: z.string().min(1),
+        title: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -14,5 +14,14 @@ export const moviesRouter = router({
       );
       const movies = await searchMoviesResult.json();
       return movies;
+    }),
+  get: baseProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .query(async ({ input }) => {
+      const searchMovieResult = await fetch(
+        `https://api.themoviedb.org/3/movie/${input.id}?api_key=${process.env.TMDB_KEY}`
+      );
+      const movie = await searchMovieResult.json();
+      return movie;
     }),
 });
