@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -15,4 +15,23 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+}
+
+model TimeInterval {
+  id          Int     @id @default(autoincrement())
+  startMinute Int
+  endMinute   Int
+  upVotes     Int
+  downVotes   Int
+  description String?
+  creatorId   Int
+  Movie       Movie?  @relation(fields: [movieId], references: [id])
+  movieId     Int?
+}
+
+model Movie {
+  id           Int            @id @default(autoincrement())
+  title        String
+  refId        Int
+  timeInterval TimeInterval[]
 }
