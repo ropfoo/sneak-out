@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-900;
+  @apply bg-black;
+  background: linear-gradient(180deg, #270e51 0px, #0b0513 350px, #0b0809 100%);
+  background-repeat: no-repeat;
 }

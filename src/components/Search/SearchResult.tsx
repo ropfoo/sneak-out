@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 interface SearchResultProps {
@@ -6,16 +7,19 @@ interface SearchResultProps {
 
 export default function SearchResult({ movie }: SearchResultProps) {
   return (
-    <div className="flex overflow-hidden rounded-2xl bg-slate-800 text-slate-50">
-      <img
-        className="w-44"
-        src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`}
-        alt=""
-      />
-      <div className="p-4">
-        <p className="text-lg font-bold">{movie.title}</p>
-        <Link href={`/movies/${movie.id}`}>to movie</Link>
+    <Link href={`/movies/${movie.id}`}>
+      <div className="flex h-[165px] overflow-hidden rounded-2xl bg-darkgray/40 text-lightgray backdrop-blur-xl ">
+        <Image
+          className="w-28"
+          width={220}
+          height={330}
+          src={`https://www.themoviedb.org/t/p/w220_and_h330_bestv2/${movie.poster_path}`}
+          alt={`${movie.title} thumbnail`}
+        />
+        <div className="p-4">
+          <p className="font-bold">{movie.title}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

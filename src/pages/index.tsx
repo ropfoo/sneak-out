@@ -22,7 +22,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 md:gap-5 md:p-5 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 px-3 pt-10 md:grid-cols-2 md:gap-5 md:p-5 xl:grid-cols-3">
           {movies?.results?.map((movie: any) => (
             <SearchResult key={movie.id} movie={movie} />
           ))}

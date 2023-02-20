@@ -13,7 +13,7 @@ export default function Header() {
 
   console.log(session);
   return (
-    <header className="sticky top-0 flex w-full flex-col bg-slate-900 p-4 text-slate-300">
+    <header className="sticky top-0 z-20 flex w-full flex-col bg-dark/90 p-4 pt-10 text-lightgray backdrop-blur-2xl">
       <div className="mb-4 flex items-center justify-between">
         <Link href={"/"}>
           <p>search</p>

@@ -5,7 +5,7 @@ export default function SearchMoviesBar() {
 
   return (
     <input
-      className="rounded-xl px-4 py-3 text-lg font-bold text-slate-600"
+      className="rounded-full px-5 py-3 text-lg font-bold text-dark"
       type="text"
       value={input}
       onChange={(e) => updateInput(e.target.value)}
