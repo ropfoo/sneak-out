@@ -23,7 +23,7 @@ export default function MoviePage() {
   };
 
   return (
-    <main className="h-screen">
+    <div>
       <div
         style={{
           backgroundImage: `url(https://www.themoviedb.org/t/p/w1920_and_h800_bestv2/${movie?.poster_path}), url(https://www.themoviedb.org/t/p/w533_and_h300_bestv2/${movie?.poster_path})`,
@@ -53,6 +53,6 @@ export default function MoviePage() {
           <input type={"submit"} />
         </form>
       </div>
-    </main>
+    </div>
   );
 }

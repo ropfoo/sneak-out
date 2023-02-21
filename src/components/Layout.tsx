@@ -8,7 +8,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="text-white">
       <Header />
-      {children}
+      <main className="min-h-[calc(100vh-120px)]">{children}</main>
     </div>
   );
 }
