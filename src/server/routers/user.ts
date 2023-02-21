@@ -1,10 +1,33 @@
-import { z } from 'zod';
-import { baseProcedure, router } from '../trpc';
+import { z } from "zod";
+import { baseProcedure, router } from "../trpc";
 
 export const userRouter = router({
   all: baseProcedure.query(({ ctx }) => {
     return ctx.user.findMany();
   }),
+  login: baseProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        providerId: z.string().min(1),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.user.findFirst({
+        where: { providerId: input.providerId },
+      });
+
+      if (user) {
+        // user already exists - go on
+        return user;
+      }
+
+      // user does not exist - create user with email
+      const newUser = await ctx.user.create({
+        data: { email: input.email, providerId: input.providerId },
+      });
+      return newUser;
+    }),
   //   add: baseProcedure
   //     .input(
   //       z.object({
